@@ -1,0 +1,15 @@
+{
+  "name": "gigflow-smart-leads-dashboard",
+  "version": "1.0.0",
+  "description": "A full-stack Lead Management Dashboard built using the MERN stack (MongoDB, Express, React, Node) with TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd server && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "install-all": "npm install && cd server && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
