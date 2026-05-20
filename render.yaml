@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: backend
+    env: docker
+    dockerfilePath: server/Dockerfile
+    branch: main
+    plan: free
+    buildCommand: ""
+    startCommand: ""

@@ -5,17 +5,19 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['Admin', 'Sales User'], default: 'Sales User' },
-}, { timestamps: true });
+  role: { type: String, enum: ['admin', 'sales'], default: 'sales' },
+  },
+  { timestamps: true }
+);
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre('save', async function (this: any) {
+  if (!this.isModified('password')) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
 // @ts-ignore
-userSchema.methods.matchPassword = async function (enteredPassword: string) {
+userSchema.methods.matchPassword = async function (this: any, enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

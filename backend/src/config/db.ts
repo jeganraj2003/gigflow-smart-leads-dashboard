@@ -19,11 +19,13 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI as string);
+    const uri =
+      process.env.MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/gigflow';
 
-    console.log("MongoDB Connected");
+    const conn = await mongoose.connect(uri as string);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error("MongoDB Error:", error);
+    console.error("MongoDB Error:", error instanceof Error ? error.message : error);
     process.exit(1);
   }
 };
