@@ -6,9 +6,12 @@ dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to Database then Start Server
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+// Start Server Immediately (Required for Render Port Detection)
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  
+  // Connect to Database after server starts
+  connectDB().catch(err => {
+    console.error('Database connection failed delayed:', err);
   });
 });
